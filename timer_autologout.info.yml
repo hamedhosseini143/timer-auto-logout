@@ -1,0 +1,8 @@
+name: 'timer auto logout'
+type: module
+description: 'auto logout add js timer'
+package: custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:autologout
+  - drupal:jst_timer
