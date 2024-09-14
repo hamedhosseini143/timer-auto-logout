@@ -1,12 +1,15 @@
 <?php
 
 /**
- * Implements hook_theme().
+ * @return array
+ * @hook theme_suggestions_HOOK_alter
  */
 function timer_autologout_theme(): array {
   return [
     'timer_autoLogout' => [
-      'variables' => ['remainingTime' => NULL],
+      'variables' => [
+        'remainingTime' => NULL,
+      ],
       'template' => 'timer_autoLogout',
     ],
   ];

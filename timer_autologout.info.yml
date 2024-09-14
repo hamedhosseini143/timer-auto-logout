@@ -5,4 +5,3 @@ package: custom
 core_version_requirement: ^10 || ^11
 dependencies:
   - drupal:autologout
-  - drupal:jst_timer

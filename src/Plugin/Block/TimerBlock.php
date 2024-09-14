@@ -21,35 +21,48 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class TimerBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The autologout manager service.
+   * The auto log-out manager service.
    *
    * @var \Drupal\autologout\AutologoutManagerInterface
    */
-  protected $autoLogoutManager;
+  protected AutologoutManagerInterface $autoLogoutManager;
 
   /**
-   * Constructs the plugin instance.
+   * @param array $configuration
+   * @param $plugin_id
+   * @param $plugin_definition
+   * @param \Drupal\autologout\AutologoutManagerInterface $autoLogout
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, AutologoutManagerInterface $autologout) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, AutologoutManagerInterface $autoLogout) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->autoLogoutManager = $autologout;
+    $this->autoLogoutManager = $autoLogout;
   }
 
   /**
-   * {@inheritdoc}
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   * @param array $configuration
+   * @param $plugin_id
+   * @param $plugin_definition
+   *
+   * @return self
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     return new self($configuration, $plugin_id, $plugin_definition, $container->get('autologout.manager'));
   }
 
   /**
-   * {@inheritdoc}
+   * @return array
    */
   public function build(): array {
     $remainingTime = $this->autoLogoutManager->createTimer();
     $build['content'] = [
       '#remainingTime' => $remainingTime,
       '#theme' => 'timer_autoLogout',
+      '#attached' => [
+        'library' => [
+          'timer_autologout/timer_auto_logout',
+        ],
+      ],
     ];
     return $build;
   }
