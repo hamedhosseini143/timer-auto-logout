@@ -9,6 +9,8 @@ function timer_autologout_theme(): array {
     'timer_autoLogout' => [
       'variables' => [
         'remainingTime' => NULL,
+        'prefix_text' => NULL,
+        'suffix_text' => NULL,
       ],
       'template' => 'timer_autoLogout',
     ],

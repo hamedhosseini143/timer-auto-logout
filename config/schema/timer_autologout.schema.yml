@@ -1,0 +1,7 @@
+block.settings.timer_autologout_timer2:
+  type: block_settings
+  label: 'timer2 block'
+  mapping:
+    example:
+      type: string
+      label: Example
