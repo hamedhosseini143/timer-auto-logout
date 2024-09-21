@@ -1,6 +1,17 @@
 <span class="auto_logout_jst_timer">
   <span style="display:none" class="interval_value">{{ remainingTime }}</span>
+   <span style="display:none" class="open_modal">{{ modal_timer }}</span>
   <span>{{ prefix_text }}</span>
   <span class="formatted_time interval-set">{{ remainingTime|date('H:i:s') }}</span>
   <span>{{ suffix_text }}</span>
 </span>
+
+<div style="display: none;" class="modal-auto-logout-parent">
+  <div style="display: none;" class="modal-auto-logout">
+    <p>ایا میخواهید در صفحه بمانید؟</p>
+    <div>
+      <button>خیر</button>
+      <button class="add-timer">بله</button>
+    </div>
+  </div>
+</div>

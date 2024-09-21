@@ -1,8 +1,8 @@
 timer_auto_logout:
   version: 1.x
+  css:
+    theme:
+      dist/css/timerautologout.timer.css: { }
   js:
-    dist/js/timer.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupal
-    - core/drupalSettings
+    dist/js/timerautologout.timer.js: {}
+

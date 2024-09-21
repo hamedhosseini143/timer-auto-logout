@@ -58,6 +58,7 @@ final class TimerBlock extends BlockBase implements ContainerFactoryPluginInterf
     return [
       'prefix_text' => $this->t('Hello world!'),
       'suffix_text' => $this->t('Goodbye world!'),
+      'modal_timer' => 10,
     ];
   }
 
@@ -78,29 +79,29 @@ final class TimerBlock extends BlockBase implements ContainerFactoryPluginInterf
       '#title' => $this->t('suffix text'),
       '#default_value' => $this->configuration['suffix_text'],
     ];
+   $form['modal_timer'] =[
+      '#type' => 'textfield',
+      '#title' => $this->t('Time for modal'),
+      '#default_value' => $this->configuration['modal_timer'],
+    ];
     return $form;
   }
 
-  /**
-   * @param $form
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *
-   * @return void
-   */
+
   public function blockSubmit($form, FormStateInterface $form_state): void {
     $this->configuration['prefix_text'] = $form_state->getValue('prefix_text');
     $this->configuration['suffix_text'] = $form_state->getValue('suffix_text');
+    $this->configuration['modal_timer'] = $form_state->getValue('modal_timer');
   }
 
-  /**
-   * @return array
-   */
+
   public function build(): array {
     $remainingTime = $this->autoLogoutManager->createTimer();
     $build['content'] = [
       '#remainingTime' => $remainingTime,
       '#prefix_text' => $this->configuration['prefix_text'],
       '#suffix_text' => $this->configuration['suffix_text'],
+      '#modal_timer' => $this->configuration['modal_timer'],
       '#theme' => 'timer_autoLogout',
       '#attached' => [
         'library' => [
@@ -108,7 +109,9 @@ final class TimerBlock extends BlockBase implements ContainerFactoryPluginInterf
         ],
       ],
     ];
+
     return $build;
+
   }
 
 }
