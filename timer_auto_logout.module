@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @return array
+ * @hook theme_suggestions_HOOK_alter
+ */
+function timer_auto_logout_theme(): array {
+  return [
+    'timer_auto_logout' => [
+      'variables' => [
+        'remainingTime' => NULL,
+        'prefix_text' => NULL,
+        'suffix_text' => NULL,
+        'reset_timer' => NULL,
+      ],
+      'template' => 'timer_auto_logout',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * @param array $suggestions
+ * @param array $variables
+ */
+function timer_auto_logout_theme_suggestions_block_alter(array &$suggestions, array $variables): void {
+  if ($block_id = $variables['elements']['#id']) {
+    $suggestions[] = 'block__' . $block_id;
+  }
+}
+
+
+/*
+ * hook_library_info_alter
+ */
+/**
+ * Implements hook_library_info_alter().
+ */
+function timer_auto_logout_library_info_alter(&$libraries, $extension): void {
+  if ($extension == 'autologout' && isset($libraries['drupal.autologout'])) {
+    unset($libraries['drupal.autologout']);
+  }
+}

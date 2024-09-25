@@ -1,0 +1,8 @@
+timer_auto_logout:
+  version: 1.x
+  css:
+    theme:
+      dist/css/timer_auto_logout.timer.css: { }
+  js:
+    dist/js/timer_auto_logout.timer.js: {}
+
