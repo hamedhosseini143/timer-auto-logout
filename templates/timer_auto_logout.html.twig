@@ -4,4 +4,6 @@
   <span class="formatted_time interval-set">{{ remainingTime|date('H:i:s') }}</span>
   <span>{{ suffix_text }}</span>
   <span>{{ reset_timer }}</span>
+  <span style="display: none" id="auto_logout_redirect_url" >{{ getUserRedirectUrl }}</span>
+  <span style="display: none"  id="auto_logout_timeout_padding" >{{ timeoutPadding }}</span>
 </span>
