@@ -3,6 +3,8 @@
     attach: function (context, settings) {
       // Start the timer
       const intervalValue = +document.querySelector('.interval_value').innerHTML;
+      let timeoutPadding = +document.querySelector('#auto_logout_timeout_padding').innerHTML;
+      timeoutPadding = Number(timeoutPadding) < 5 ? 5 : Number(timeoutPadding) + 5;
       let dateNow = new Date();
       dateNow.setSeconds(dateNow.getSeconds() + intervalValue);
 
@@ -60,7 +62,7 @@
             clearInterval(interval);
             setTimeout(() => {
               window.location.href = '/user/login';
-            }, 5000);
+            }, timeoutPadding*1000);
           }
 
         }, 1000);

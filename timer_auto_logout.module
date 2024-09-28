@@ -12,7 +12,6 @@ function timer_auto_logout_theme(): array {
         'prefix_text' => NULL,
         'suffix_text' => NULL,
         'reset_timer' => NULL,
-        'getUserRedirectUrl' => NULL,
         'timeoutPadding' => NULL,
       ],
       'template' => 'timer_auto_logout',

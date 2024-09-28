@@ -109,13 +109,11 @@ final class TimerBlock extends BlockBase implements ContainerFactoryPluginInterf
    */
   public function build(): array {
     $remainingTime = $this->autoLogoutManager->createTimer();
-    $getUserRedirectUrl = $this->autoLogoutManager->getUserRedirectUrl();
     $TimeoutPadding = $this->config->get('autologout.settings')->get('padding');
     $build['content'] = [
       '#remainingTime' => $remainingTime,
       '#prefix_text' => $this->configuration['prefix_text'],
       '#suffix_text' => $this->configuration['suffix_text'],
-      '#getUserRedirectUrl' => $getUserRedirectUrl,
       '#timeoutPadding' => $TimeoutPadding,
       '#theme' => 'timer_auto_logout',
       '#attached' => [
