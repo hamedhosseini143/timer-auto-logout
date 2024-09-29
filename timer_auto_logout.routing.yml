@@ -1,0 +1,7 @@
+timer_auto_logout.settings:
+  path: '/admin/config/people/autologout/timer-auto-logout'
+  defaults:
+    _title: 'Settings'
+    _form: 'Drupal\timer_auto_logout\Form\SettingsForm'
+  requirements:
+    _permission: 'administer site configuration'

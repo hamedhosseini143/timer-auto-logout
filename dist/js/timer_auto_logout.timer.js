@@ -1,6 +1,8 @@
 (function ($, Drupal, drupalSettings) {
+  console.log('timerAutoLogout');
   Drupal.behaviors.timerAutoLogout = {
     attach: function (context, settings) {
+
       // Start the timer
       const intervalValue = +document.querySelector('.interval_value').innerHTML;
       let timeoutPadding = +document.querySelector('#auto_logout_timeout_padding').innerHTML;
@@ -37,9 +39,11 @@
 
           // Update time display
           document.querySelector('.interval-set').innerText = formatSeconds(newTime);
+          console.log('Time left: ', formatSeconds(newTime));
 
           // Handle click event for resetting the timer
           $('#timer_auto_logout_reset-timer', context).on('click', function () {
+            console.log('Resetting timer');
             const updateTime = new Date();
 
             if (!isAjaxRequestSent) {

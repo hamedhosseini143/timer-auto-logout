@@ -1,7 +1,10 @@
-block.settings.timer_autologout_timer2:
-  type: block_settings
-  label: 'timer2 block'
+timer_auto_logout.settings:
+  type: config_object
+  label: 'Timer Auto Logout Settings'
   mapping:
-    example:
-      type: string
-      label: Example
+    prefix_text:
+      type: label
+      label: 'Prefix Text'
+    suffix_text:
+      type: label
+      label: 'Suffix Text'

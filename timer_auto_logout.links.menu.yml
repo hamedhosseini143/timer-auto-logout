@@ -1,0 +1,5 @@
+timer_auto_logout.settings:
+  title: Settings
+  parent: system.admin_config_system
+  route_name: timer_auto_logout.settings
+  weight: 10
