@@ -8,7 +8,6 @@ use Drupal\autologout\AutologoutManagerInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -98,7 +97,10 @@ final class TimerBlock extends BlockBase implements ContainerFactoryPluginInterf
     $build['reset_timer'] = [
       '#type' => 'button',
       '#value' => $this->t('Reset Timer'),
-      '#attributes' => ['id' => 'timer_auto_logout_reset-timer'],
+      '#attributes' => [
+        'id' => 'timer_auto_logout_reset-timer',
+        'class' => ['timer_auto_logout_reset-time'],
+      ],
     ];
 
     return $build;

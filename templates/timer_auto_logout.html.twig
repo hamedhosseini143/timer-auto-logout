@@ -6,3 +6,24 @@
   <span>{{ reset_timer }}</span>
   <span style="display: none"  id="auto_logout_timeout_padding" >{{ timeoutPadding }}</span>
 </span>
+
+<div
+{#  style="display: none"#}
+  class="parent-modal">
+  <div
+{#    style="display: none"#}
+    class="modal">
+    <span class="timer-text">16s</span>
+    <p>The page will close soon</p>
+    <div class="auto_logout_jst_timer_modal">
+      <input
+        id="timer_auto_logout_reset-timer_modal"
+        type="submit"
+        name="op"
+        value="Reset Timer"
+        class="timer_auto_logout_reset-timer_modal button js-form-submit form-submit"
+        data-once="timerAutoLogoutClickModal"
+      />
+    </div>
+  </div>
+</div>

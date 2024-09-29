@@ -7,11 +7,17 @@
       once('timerAutoLogout', 'body').forEach(function () {
 
         // Start the timer
+
         const intervalValue = +document.querySelector('.interval_value').innerHTML;
         let timeoutPadding = +document.querySelector('#auto_logout_timeout_padding').innerHTML;
-        timeoutPadding = Number(timeoutPadding) < 5 ? 5 : Number(timeoutPadding) + 5;
+        timeoutPadding = Number(timeoutPadding) < 5 ? 5 : Number(timeoutPadding) + 2;
         let dateNow = new Date();
         dateNow.setSeconds(dateNow.getSeconds() + intervalValue);
+
+        // get modal selector
+        const parentModalTimer = document.querySelector(".parent-modal");
+        const modalTimer = document.querySelector(".modal");
+        const timerText = document.querySelector(".timer-text");
 
         // Store the timestamp in localStorage
         localStorage.setItem('timer_auto_logout_reset-timer', dateNow);
@@ -47,31 +53,59 @@
             // Handle click event for resetting the timer, using once
             once('timerAutoLogoutClick', '#timer_auto_logout_reset-timer', context).forEach(function (element) {
               $(element).on('click', function () {
-                console.log('Resetting timer');
-                const updateTime = new Date();
-
-                // Ensure the request is only sent once
-                if (!isAjaxRequestSent) {
-                  isAjaxRequestSent = true; // Mark the request as sent
-                  $.ajax({
-                    url: '/autologout_ajax_set_last',
-                    type: 'GET',
-                    success: function (data) {
-                      isAjaxRequestSent = false; // Reset the flag after successful request
-                    },
-                    error: function () {
-                      isAjaxRequestSent = false; // Reset the flag on error
-                    },
-                  });
-
-                  // Extend the timestamp on reset
-                  newTimestamp = new Date(updateTime.setSeconds(updateTime.getSeconds() + intervalValue));
-                  localStorage.setItem('timer_auto_logout_reset-timer', newTimestamp);
-                }
+                handleClick();
               });
             });
+            // Handle click event for resetting the timer, using once
+            once('timer_auto_logout_reset-timer_modal', '.timer_auto_logout_reset-timer_modal', context).forEach(function (element) {
+              $(element).on('click', function () {
+                console.log('Resetting timer');
+                handleClick();
+              });
+            });
+            function handleClick() {
+              console.log('Resetting timer function');
+              const updateTime = new Date();
+
+              // Ensure the request is only sent once
+              if (!isAjaxRequestSent) {
+                isAjaxRequestSent = true; // Mark the request as sent
+                $.ajax({
+                  url: '/autologout_ajax_set_last',
+                  type: 'GET',
+                  success: function (data) {
+                    isAjaxRequestSent = false; // Reset the flag after successful request
+                  },
+                  error: function () {
+                    isAjaxRequestSent = false; // Reset the flag on error
+                  },
+                });
+                parentModalTimer.style.display = "none";
+                modalTimer.style.display = "none";
+
+                // Extend the timestamp on reset
+                newTimestamp = new Date(updateTime.setSeconds(updateTime.getSeconds() + intervalValue));
+                localStorage.setItem('timer_auto_logout_reset-timer', newTimestamp);
+              }
+            }
+            function handleModalTimer() {
+              let second = timeoutPadding;
+
+              parentModalTimer.style.display = "grid";
+              modalTimer.style.display = "grid";
+
+              const timerInterval = setInterval(() => {
+                second--;
+                timerText.innerText = `${second}s`;
+
+                if (second < 1) {
+                  clearInterval(timerInterval);
+                }
+              }, 1000);
+            }
 
             if (newTime === 0) {
+              handleModalTimer();
               clearInterval(interval);
               setTimeout(() => {
                 window.location.href = '/user/login';
