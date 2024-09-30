@@ -6,6 +6,6 @@ timer_auto_logout:
   js:
     dist/js/timer_auto_logout.timer.js: {}
   dependencies:
-    - core/jquery
     - core/drupal
-    - core/drupal.dialog.ajax
+    - core/jquery
+    - core/once

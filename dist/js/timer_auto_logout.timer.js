@@ -1,5 +1,5 @@
 (function ($, Drupal, once) {
-  console.log('timerAutoLogout');
+
   Drupal.behaviors.timerAutoLogout = {
     attach: function (context, settings) {
 
@@ -8,22 +8,23 @@
 
         // Start the timer
 
+        // select interval value and timeout padding
         const intervalValue = +document.querySelector('.interval_value').innerHTML;
         let timeoutPadding = +document.querySelector('#auto_logout_timeout_padding').innerHTML;
-        timeoutPadding = Number(timeoutPadding) < 5 ? 5 : Number(timeoutPadding) + 2;
+        // set default value for timeout padding
+        const timeoutForOpenModal = Number(timeoutPadding) < 5 ? 5 : Number(timeoutPadding);
+        // get current date and add interval value
         let dateNow = new Date();
+        // add seconds to current date
         dateNow.setSeconds(dateNow.getSeconds() + intervalValue);
-
         // get modal selector
         const parentModalTimer = document.querySelector(".parent-modal");
         const modalTimer = document.querySelector(".modal");
         const timerText = document.querySelector(".timer-text");
-
         // Store the timestamp in localStorage
         localStorage.setItem('timer_auto_logout_reset-timer', dateNow);
-
-        let isAjaxRequestSent = false; // Flag to prevent multiple requests
-
+        // Flag to prevent multiple requests
+        let isAjaxRequestSent = false;
         // Format seconds to HH:MM:SS
         function formatSeconds(seconds) {
           const hrs = Math.floor(seconds / 3600);
@@ -37,19 +38,18 @@
           return `${formattedHrs}:${formattedMins}:${formattedSecs}`;
         }
 
+
         // Function to check time and update interval
         function checkTime() {
-          const timestamp = new Date(localStorage.getItem('timer_auto_logout_reset-timer'));
-
-          const interval = setInterval(() => {
+          // Set interval to update the time
+            const interval = setInterval(() => {
             const updateDate = new Date();
+            // Get the timestamp from localStorage
             let newTimestamp = new Date(localStorage.getItem('timer_auto_logout_reset-timer'));
-            const newTime = Math.floor((newTimestamp - updateDate) / 1000);
+            let newTime = Math.floor((newTimestamp - updateDate) / 1000);
 
             // Update time display
-            document.querySelector('.interval-set').innerText = formatSeconds(newTime);
-            console.log('Time left: ', formatSeconds(newTime));
-
+              document.querySelector('.interval-set').innerText = formatSeconds(newTime > 0 ? newTime : 0)
             // Handle click event for resetting the timer, using once
             once('timerAutoLogoutClick', '#timer_auto_logout_reset-timer', context).forEach(function (element) {
               $(element).on('click', function () {
@@ -59,14 +59,12 @@
             // Handle click event for resetting the timer, using once
             once('timer_auto_logout_reset-timer_modal', '.timer_auto_logout_reset-timer_modal', context).forEach(function (element) {
               $(element).on('click', function () {
-                console.log('Resetting timer');
                 handleClick();
               });
             });
             function handleClick() {
-              console.log('Resetting timer function');
-              const updateTime = new Date();
-
+              const updateTime = new Date()
+              console.log('updateTime', updateTime);
               // Ensure the request is only sent once
               if (!isAjaxRequestSent) {
                 isAjaxRequestSent = true; // Mark the request as sent
@@ -74,10 +72,12 @@
                   url: '/autologout_ajax_set_last',
                   type: 'GET',
                   success: function (data) {
-                    isAjaxRequestSent = false; // Reset the flag after successful request
+                    // Reset the flag after successful request
+                    isAjaxRequestSent = false;
                   },
                   error: function () {
-                    isAjaxRequestSent = false; // Reset the flag on error
+                    // Reset the flag on error
+                    isAjaxRequestSent = false;
                   },
                 });
                 parentModalTimer.style.display = "none";
@@ -88,8 +88,12 @@
                 localStorage.setItem('timer_auto_logout_reset-timer', newTimestamp);
               }
             }
+
+            /*
+             * Handle modal timer for auto logout
+             */
             function handleModalTimer() {
-              let second = timeoutPadding;
+              let second = timeoutForOpenModal;
 
               parentModalTimer.style.display = "grid";
               modalTimer.style.display = "grid";
@@ -103,18 +107,20 @@
                 }
               }, 1000);
             }
+            const finalTime = newTime +timeoutForOpenModal;
+              console.log('timerAutoLogout', finalTime);
 
             if (newTime === 0) {
               handleModalTimer();
+            }
+            if (finalTime === 0) {
               clearInterval(interval);
               setTimeout(() => {
                 window.location.href = '/user/login';
-              }, timeoutPadding * 1000);
+              }, 2000);
             }
-
           }, 1000);
         }
-
         checkTime();
       });
     }

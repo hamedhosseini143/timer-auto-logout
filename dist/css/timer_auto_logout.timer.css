@@ -25,3 +25,20 @@
   place-items: center;
   z-index: 100;
 }
+
+.auto_logout_jst_timer_modal svg {
+  opacity: 0;
+}
+
+.auto_logout_jst_timer_modal.active svg {
+  opacity: 100 !important;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+}

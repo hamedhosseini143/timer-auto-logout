@@ -81,11 +81,13 @@ final class TimerBlock extends BlockBase implements ContainerFactoryPluginInterf
     $TimeoutPadding = $this->config->get('autologout.settings')->get('padding');
     $prefixText = $this->config->get('timer_auto_logout.settings')->get('prefix_text');
     $suffixText = $this->config->get('timer_auto_logout.settings')->get('suffix_text');
+    $textInModal = $this->config->get('timer_auto_logout.settings')->get('text_in_modal');
     $build['content'] = [
       '#remainingTime' => $remainingTime,
       '#prefix_text' => $this->t($prefixText),
       '#suffix_text' => $this->t($suffixText),
       '#timeoutPadding' => $TimeoutPadding,
+      '#text_in_modal' => $this->t($textInModal),
       '#theme' => 'timer_auto_logout',
       '#attached' => [
         'library' => [

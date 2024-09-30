@@ -3,5 +3,6 @@ type: module
 description: 'auto logout add js timer'
 package: custom
 core_version_requirement: ^10 || ^11
+configure: timer_auto_logout.settings
 dependencies:
   - drupal:autologout

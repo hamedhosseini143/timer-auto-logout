@@ -3,8 +3,11 @@ timer_auto_logout.settings:
   label: 'Timer Auto Logout Settings'
   mapping:
     prefix_text:
-      type: label
+      type: text
       label: 'Prefix Text'
     suffix_text:
       type: label
       label: 'Suffix Text'
+    text_in_modal:
+      type: label
+      label: 'Message in Modal'

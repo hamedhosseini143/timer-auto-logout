@@ -1,0 +1,4 @@
+timer_auto_logout.settings:
+  route_name: timer_auto_logout.settings
+  title: 'Timer Auto Logout Settings'
+  base_route: timer_auto_logout.settings

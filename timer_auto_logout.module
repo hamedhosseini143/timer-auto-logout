@@ -13,6 +13,7 @@ function timer_auto_logout_theme(): array {
         'suffix_text' => NULL,
         'reset_timer' => NULL,
         'timeoutPadding' => NULL,
+        'text_in_modal' => NULL,
       ],
       'template' => 'timer_auto_logout',
     ],
