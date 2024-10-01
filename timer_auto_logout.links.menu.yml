@@ -1,5 +1,6 @@
 timer_auto_logout.settings:
-  title: Settings
-  parent: system.admin_config_system
-  route_name: timer_auto_logout.settings
-  weight: 10
+    title: 'Timer Auto Logout'
+    description: 'Timer Auto Logout settings'
+    parent: user.admin_index
+    weight: -10
+    route_name: timer_auto_logout.settings

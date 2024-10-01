@@ -8,6 +8,8 @@
 
         // Start the timer
 
+
+
         // select interval value and timeout padding
         const intervalValue = +document.querySelector('.interval_value').innerHTML;
         let timeoutPadding = +document.querySelector('#auto_logout_timeout_padding').innerHTML;
@@ -38,6 +40,14 @@
           return `${formattedHrs}:${formattedMins}:${formattedSecs}`;
         }
 
+        // add close button to modal
+        const btnClsoeModal = document.querySelectorAll(".btn-clsoe");
+        btnClsoeModal.forEach((element) => {
+          element.addEventListener("click", () => {
+            parentModalTimer.style.display = "none";
+            modalTimer.style.display = "none";
+          });
+        });
 
         // Function to check time and update interval
         function checkTime() {
@@ -64,7 +74,6 @@
             });
             function handleClick() {
               const updateTime = new Date()
-              console.log('updateTime', updateTime);
               // Ensure the request is only sent once
               if (!isAjaxRequestSent) {
                 isAjaxRequestSent = true; // Mark the request as sent
@@ -108,7 +117,6 @@
               }, 1000);
             }
             const finalTime = newTime +timeoutForOpenModal;
-              console.log('timerAutoLogout', finalTime);
 
             if (newTime === 0) {
               handleModalTimer();

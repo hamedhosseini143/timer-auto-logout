@@ -42,3 +42,21 @@
   background: #fff;
   transform: translate(-50%, -50%);
 }
+
+.content-modal {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-clsoe-modal {
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin-right: auto;
+  cursor: pointer;
+}
+.parent-modal .modal {
+  padding: 24px 16px;
+  min-height: 240px;
+}
