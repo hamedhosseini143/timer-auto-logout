@@ -5,10 +5,7 @@
 
       // Ensure all the code runs only once
       once('timerAutoLogout', 'body').forEach(function () {
-
         // Start the timer
-
-
 
         // select interval value and timeout padding
         const intervalValue = +document.querySelector('.interval_value').innerHTML;
@@ -21,7 +18,9 @@
         dateNow.setSeconds(dateNow.getSeconds() + intervalValue);
         // get modal selector
         const parentModalTimer = document.querySelector(".parent-modal");
+        // get modal selector for timer
         const modalTimer = document.querySelector(".modal");
+        // get timer text selector for text display
         const timerText = document.querySelector(".timer-text");
         // Store the timestamp in localStorage
         localStorage.setItem('timer_auto_logout_reset-timer', dateNow);
@@ -29,20 +28,21 @@
         let isAjaxRequestSent = false;
         // Format seconds to HH:MM:SS
         function formatSeconds(seconds) {
+          // Get the hours, minutes and seconds from the seconds value passed in the function
           const hrs = Math.floor(seconds / 3600);
           const mins = Math.floor((seconds % 3600) / 60);
           const secs = seconds % 60;
-
+          // Format the hours, minutes and seconds to have a leading zero if they are less than 10
           const formattedHrs = String(hrs).padStart(2, '0');
           const formattedMins = String(mins).padStart(2, '0');
           const formattedSecs = String(secs).padStart(2, '0');
-
+          // Return the formatted time
           return `${formattedHrs}:${formattedMins}:${formattedSecs}`;
         }
 
-        // add close button to modal
-        const btnClsoeModal = document.querySelectorAll(".btn-clsoe");
-        btnClsoeModal.forEach((element) => {
+        // add close button to modal timer and handle click event
+        const btnCloseModal = document.querySelectorAll(".btn-clsoe");
+        btnCloseModal.forEach((element) => {
           element.addEventListener("click", () => {
             parentModalTimer.style.display = "none";
             modalTimer.style.display = "none";

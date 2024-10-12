@@ -10,6 +10,9 @@ The issues related to the autologout module are as follows:
 3.	AJAX issue: At times, clicking on the “Reset Timer” button in the module didn’t work properly.
 4.	Logout failure: When two tabs were open, the logout process sometimes failed.
 5.	Reset Timer button issue: In some cases, instead of resetting the timer, more time was added to the timer.
+6. And the AJAX request was not sent correctly, and in some cases, it encountered errors.
+7. When you clicked the reset button, the AJAX request was sent multiple times.
+8. In some cases, the modal window didn’t open.
 
 Benefits of the timer auto logout module:
 1. Timer Synchronization: By utilizing local storage, the timer is synchronized across all tabs, allowing users to know the exact logout time.
